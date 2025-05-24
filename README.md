@@ -1,247 +1,96 @@
-# AI Code Assistant VS Code Extension - Setup Guide
+Claude VS Code Extension by ChozhApps
+A Visual Studio Code extension that integrates Claude AI directly into your editor. Get AI-powered coding help, explanations, documentation generation, and more — without leaving VS Code.
 
-## 🚀 Quick Start
+🚀 Features
+🤖 Seamless integration with Claude AI
 
-### Prerequisites
-- Node.js (v16 or higher)
-- VS Code
-- TypeScript installed globally: `npm install -g typescript`
-- VS Code Extension Manager: `npm install -g vsce`
+⌨️ Simple keyboard shortcuts for quick access
 
-### Installation Steps
+🔒 Secure API key storage
 
-1. **Create Extension Project**
-```bash
-mkdir ai-code-assistant
-cd ai-code-assistant
-```
+🧠 Supports multiple Claude models
 
-2. **Initialize Project**
-```bash
-npm init -y
-```
+💡 Context-aware responses based on your selected code
 
-3. **Install Dependencies**
-```bash
-# Development dependencies
-npm install -D @types/vscode @types/node typescript
+🛠 Installation
+Download the .vsix file from the Releases page.
 
-# Runtime dependencies  
-npm install axios
-```
+In VS Code, press Ctrl+Shift+P (or Cmd+Shift+P on Mac).
 
-4. **Create Project Structure**
-```
-ai-code-assistant/
-├── src/
-│   ├── extension.ts
-│   ├── aiProvider.ts
-│   └── chatProvider.ts
-├── package.json
-├── tsconfig.json
-└── README.md
-```
+Type Install from VSIX and select the downloaded file.
 
-5. **Copy Files**
-- Copy the `package.json` content from the artifacts
-- Copy all TypeScript files to the `src/` directory
-- Copy `tsconfig.json` to root
+Restart VS Code.
 
-6. **Compile Extension**
-```bash
+⚙️ Configuration
+Before using the extension, you must add your Claude API key:
+
+Get your API key from the Anthropic Console.
+
+Open VS Code Settings (Ctrl+, or Cmd+, on Mac).
+
+Search for Claude.
+
+Enter your API key in the Claude VS Code: API Key field.
+
+Optional Settings:
+claude-vscode.model: Choose which Claude model to use (default: claude-3-opus-20240229)
+
+💡 Usage
+Select text or code in your editor.
+
+Trigger Claude with any of the following:
+
+Press Ctrl+Shift+C (or Cmd+Shift+C on Mac)
+
+Press Ctrl+Shift+P, type “Ask Claude”, and run the command
+
+Right-click and select Ask Claude from the context menu
+
+Claude's response will appear in the Claude Output channel.
+
+🧪 Examples
+Here are some practical ways to use Claude with your code:
+
+🔍 Code Explanation
+Select a complex code block and ask Claude to explain it.
+
+🔧 Code Improvement
+Highlight code you'd like optimized and request suggestions.
+
+📝 Documentation
+Select a function or class and ask Claude to generate inline documentation.
+
+🐞 Bug Finding
+Choose a piece of code and ask Claude to identify potential issues.
+
+👨‍💻 Development
+To build the extension locally:
+
+bash
+Copy
+Edit
+# Clone the repository
+git clone https://github.com/AndroidManikandan5689/ai_code_assistance_by_chozhapps.git
+
+# Install dependencies
+cd ai_code_assistance_by_chozhapps
+npm install
+
+# Compile the extension
 npm run compile
-```
 
-## 🔧 Configuration
-
-### API Keys Setup
-The extension supports both Anthropic Claude and OpenAI:
-
-1. **For Anthropic Claude:**
-   - Get API key from [Anthropic Console](https://console.anthropic.com/)
-   - In VS Code: `Ctrl+Shift+P` → "AI: Set API Key"
-   - Configure provider: Settings → AI Code Assistant → Provider: "anthropic"
-
-2. **For OpenAI:**
-   - Get API key from [OpenAI Platform](https://platform.openai.com/)
-   - Set provider to "openai" in settings
-   - Configure model (e.g., "gpt-4", "gpt-3.5-turbo")
-
-### Settings Configuration
-```json
-{
-  "ai-assistant.provider": "anthropic",
-  "ai-assistant.model": "claude-3-sonnet-20240229",
-  "ai-assistant.maxTokens": 2000,
-  "ai-assistant.temperature": 0.1
-}
-```
-
-## 🎯 Features
-
-### Code Actions (Right-click menu)
-- **Explain Code**: Get detailed explanations
-- **Optimize Code**: Improve performance and readability
-- **Debug Code**: Find potential bugs and issues
-- **Add Comments**: Generate comprehensive comments
-- **Refactor Code**: Improve code structure
-- **Generate Tests**: Create unit tests
-
-### Commands
-- `Ctrl+Alt+E`: Explain selected code
-- `Ctrl+Alt+G`: Generate code from comment/prompt
-- `Ctrl+Alt+C`: Open AI chat panel
-
-### Chat Interface
-- Interactive AI chat in sidebar
-- Code insertion from chat responses
-- Persistent conversation history
-- Markdown and code block support
-
-## 🔨 Development
-
-### Running in Development
-1. Open project in VS Code
-2. Press `F5` to launch Extension Development Host
-3. Test extension in new VS Code window
-
-### Building for Production
-```bash
-# Package extension
-npm install -g @vscode/vsce=
-or
+# Package it
 npm install -g vsce
-
 vsce package
+🤝 Contributing
+Contributions are welcome! Feel free to fork the project and submit a pull request.
 
-# Install locally
-code --install-extension ai-code-assistant-0.0.1.vsix
-```
+📜 License
+This project is licensed under the MIT License.
 
-### Publishing
-```bash
-# Create publisher account
-vsce create-publisher your-name
+👨‍💻 Author
+Manikandan (AndroidMani), Founder of ChozhApps
+📧 Contact: chozhanaaduapps@gmail.com
 
-# Login
-vsce login your-name
-
-# Publish
-vsce publish
-```
-
-## 🛠️ Customization
-
-### Adding New AI Providers
-1. Extend `AIProvider` class in `aiProvider.ts`
-2. Add provider configuration in `package.json`
-3. Implement API integration method
-
-### Custom Prompts
-Update prompts in `buildPrompt()` method in `aiProvider.ts`:
-
-```typescript
-private buildPrompt(code: string, action: string, language: string): string {
-    const prompts = {
-        yourAction: `Your custom prompt for ${language} code:\n\n${code}`,
-        // ... other prompts
-    };
-    return prompts[action as keyof typeof prompts] || prompts.explain;
-}
-```
-
-### UI Customization
-Modify the HTML/CSS in `chatProvider.ts` `getHtmlForWebview()` method.
-
-## 🔍 Troubleshooting
-
-### Common Issues
-
-1. **API Key Not Found**
-   - Ensure API key is set: Command Palette → "AI: Set API Key"
-   - Check provider setting matches your API key type
-
-2. **Network Errors**
-   - Check internet connection
-   - Verify API endpoints are accessible
-   - Check if corporate firewall is blocking requests
-
-3. **Compilation Errors**
-   - Run `npm install` to ensure dependencies
-   - Check TypeScript version compatibility
-   - Verify `tsconfig.json` configuration
-
-4. **Extension Not Loading**
-   - Check VS Code version compatibility (≥1.74.0)
-   - Verify `package.json` activation events
-   - Check console for error messages
-
-### Debug Mode
-Enable debug logging by adding to settings:
-```json
-{
-  "ai-assistant.debug": true
-}
-```
-
-## 📝 Usage Examples
-
-### Explain Code
-1. Select code snippet
-2. Right-click → "AI Assistant" → "Explain Selected Code"
-3. View explanation in new tab
-
-### Generate Code
-1. Write comment: `// Create a function to sort array by name`
-2. Press `Ctrl+Alt+G`
-3. Choose insertion method
-
-### Chat Usage
-1. Open chat: `Ctrl+Alt+C`
-2. Ask: "How do I implement a binary search?"
-3. Click "Insert" on code blocks to add to editor
-
-## 🚀 Advanced Features
-
-### Batch Processing
-Process multiple files by creating custom commands:
-
-```typescript
-vscode.commands.registerCommand('ai-assistant.processWorkspace', async () => {
-    const files = await vscode.workspace.findFiles('**/*.{js,ts,py}');
-    for (const file of files) {
-        // Process each file
-    }
-});
-```
-
-### Custom Context Menu
-Add more context menu items in `package.json`:
-
-```json
-"menus": {
-  "editor/context": [
-    {
-      "command": "your-custom-command",
-      "when": "editorLangId == python"
-    }
-  ]
-}
-```
-
-## 📋 Requirements
-
-- VS Code ≥ 1.74.0
-- Node.js ≥ 16.0.0
-- Valid AI API key (Anthropic or OpenAI)
-- Internet connection for API calls
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create feature branch
-3. Make changes
-4. Test thoroughly
-5. Submit pull request
-
-This extension provides a solid foundation for AI-powered code assistance that you can extend and customize based on your specific needs!
+💬 Support
+If you encounter any issues or have feature requests, open an issue on GitHub.
