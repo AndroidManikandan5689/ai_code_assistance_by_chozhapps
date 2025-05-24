@@ -30,15 +30,15 @@ export class AIProvider {
     private buildPrompt(code: string, action: string, language: string): string {
         const prompts = {
             explain: `Explain this ${language} code in detail:\n\n\`\`\`${language}\n${code}\n\`\`\`\n\nProvide a clear explanation of what this code does, how it works, and any important details.`,
-            
+
             optimize: `Optimize this ${language} code for better performance and readability:\n\n\`\`\`${language}\n${code}\n\`\`\`\n\nProvide the optimized code with improvements for performance, readability, and best practices.`,
-            
+
             debug: `Analyze this ${language} code for potential bugs and issues:\n\n\`\`\`${language}\n${code}\n\`\`\`\n\nIdentify potential problems, bugs, edge cases, and suggest fixes. Explain what could go wrong and how to prevent it.`,
-            
+
             comment: `Add comprehensive comments to this ${language} code:\n\n\`\`\`${language}\n${code}\n\`\`\`\n\nAdd clear, helpful comments explaining what each part does. Include function/method documentation where appropriate.`,
-            
+
             refactor: `Refactor this ${language} code to improve its structure and maintainability:\n\n\`\`\`${language}\n${code}\n\`\`\`\n\nImprove the code structure, naming, separation of concerns, and overall maintainability while keeping the same functionality.`,
-            
+
             test: `Generate comprehensive unit tests for this ${language} code:\n\n\`\`\`${language}\n${code}\n\`\`\`\n\nCreate thorough unit tests that cover normal cases, edge cases, and error conditions. Use appropriate testing framework for ${language}.`
         };
 
@@ -53,6 +53,8 @@ export class AIProvider {
             return await this.callClaude(prompt);
         } else if (provider === 'openai') {
             return await this.callOpenAI(prompt);
+        } else if (provider === 'ollama') {
+            return await this.callOllama(prompt);
         } else {
             throw new Error(`Unsupported AI provider: ${provider}`);
         }
@@ -66,7 +68,7 @@ export class AIProvider {
 
         const apiKey = await this.context.secrets.get('anthropic-api-key');
         if (!apiKey) {
-            throw new Error('Anthropic API key not found. Please set it using the "AI: Set API Key" command.');
+            throw new Error('Anthropic API key not found. Please set it using the "AIMani: Set API Key" command.');
         }
 
         try {
@@ -112,7 +114,7 @@ export class AIProvider {
 
         const apiKey = await this.context.secrets.get('openai-api-key');
         if (!apiKey) {
-            throw new Error('OpenAI API key not found. Please set it using the "AI: Set API Key" command.');
+            throw new Error('OpenAI API key not found. Please set it using the "AIMani: Set API Key" command.');
         }
 
         try {
@@ -142,6 +144,40 @@ export class AIProvider {
             );
 
             return response.data.choices[0].message.content;
+        } catch (error: any) {
+            if (error.response) {
+                throw new Error(`API Error: ${error.response.status} - ${error.response.data.error?.message || 'Unknown error'}`);
+            } else if (error.request) {
+                throw new Error('Network error: Unable to reach AI service');
+            } else {
+                throw new Error(`Request error: ${error.message}`);
+            }
+        }
+    }
+
+    private async callOllama(prompt: string): Promise<string> {
+        const config = vscode.workspace.getConfiguration('ai-assistant');
+        const model = config.get<string>('model', 'ollama-model');
+        const maxTokens = config.get<number>('maxTokens', 2000);
+        const temperature = config.get<number>('temperature', 0.1);
+
+        try {
+            const response = await axios.post(
+                'http://localhost:11434/v1/completions',
+                {
+                    model: model,
+                    prompt: prompt,
+                    max_tokens: maxTokens,
+                    temperature: temperature
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+            );
+
+            return response.data.choices[0].text;
         } catch (error: any) {
             if (error.response) {
                 throw new Error(`API Error: ${error.response.status} - ${error.response.data.error?.message || 'Unknown error'}`);

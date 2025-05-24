@@ -61,6 +61,9 @@ class AIProvider {
         else if (provider === 'openai') {
             return await this.callOpenAI(prompt);
         }
+        else if (provider === 'ollama') {
+            return await this.callOllama(prompt);
+        }
         else {
             throw new Error(`Unsupported AI provider: ${provider}`);
         }
@@ -72,7 +75,7 @@ class AIProvider {
         const temperature = config.get('temperature', 0.1);
         const apiKey = await this.context.secrets.get('anthropic-api-key');
         if (!apiKey) {
-            throw new Error('Anthropic API key not found. Please set it using the "AI: Set API Key" command.');
+            throw new Error('Anthropic API key not found. Please set it using the "AIMani: Set API Key" command.');
         }
         try {
             const response = await axios_1.default.post('https://api.anthropic.com/v1/messages', {
@@ -113,7 +116,7 @@ class AIProvider {
         const temperature = config.get('temperature', 0.1);
         const apiKey = await this.context.secrets.get('openai-api-key');
         if (!apiKey) {
-            throw new Error('OpenAI API key not found. Please set it using the "AI: Set API Key" command.');
+            throw new Error('OpenAI API key not found. Please set it using the "AIMani: Set API Key" command.');
         }
         try {
             const response = await axios_1.default.post('https://api.openai.com/v1/chat/completions', {
@@ -137,6 +140,36 @@ class AIProvider {
                 }
             });
             return response.data.choices[0].message.content;
+        }
+        catch (error) {
+            if (error.response) {
+                throw new Error(`API Error: ${error.response.status} - ${error.response.data.error?.message || 'Unknown error'}`);
+            }
+            else if (error.request) {
+                throw new Error('Network error: Unable to reach AI service');
+            }
+            else {
+                throw new Error(`Request error: ${error.message}`);
+            }
+        }
+    }
+    async callOllama(prompt) {
+        const config = vscode.workspace.getConfiguration('ai-assistant');
+        const model = config.get('model', 'ollama-model');
+        const maxTokens = config.get('maxTokens', 2000);
+        const temperature = config.get('temperature', 0.1);
+        try {
+            const response = await axios_1.default.post('http://localhost:11434/v1/completions', {
+                model: model,
+                prompt: prompt,
+                max_tokens: maxTokens,
+                temperature: temperature
+            }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            return response.data.choices[0].text;
         }
         catch (error) {
             if (error.response) {

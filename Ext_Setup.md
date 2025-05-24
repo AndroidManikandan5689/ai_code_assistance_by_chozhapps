@@ -59,7 +59,7 @@ The extension supports both Anthropic Claude and OpenAI:
 
 1. **For Anthropic Claude:**
    - Get API key from [Anthropic Console](https://console.anthropic.com/)
-   - In VS Code: `Ctrl+Shift+P` → "AI: Set API Key"
+   - In VS Code: `Ctrl+Shift+P` → "AIMani: Set API Key"
    - Configure provider: Settings → AI Code Assistant → Provider: "anthropic"
 
 2. **For OpenAI:**
@@ -158,7 +158,7 @@ Modify the HTML/CSS in `chatProvider.ts` `getHtmlForWebview()` method.
 ### Common Issues
 
 1. **API Key Not Found**
-   - Ensure API key is set: Command Palette → "AI: Set API Key"
+   - Ensure API key is set: Command Palette → "AIMani: Set API Key"
    - Check provider setting matches your API key type
 
 2. **Network Errors**
@@ -228,6 +228,38 @@ Add more context menu items in `package.json`:
   ]
 }
 ```
+
+## List of AI Models
+
+Your extension supports three AI model providers:
+
+1. Anthropic Claude
+How to use:
+Get your API key from Anthropic Console.
+In VS Code, open Command Palette (Ctrl+Shift+P) → "AIMani: Set API Key" and enter your key.
+In settings, set:
+Use extension features as normal.
+2. OpenAI (ChatGPT, GPT-4, etc.)
+How to use:
+Get your API key from OpenAI Platform.
+In VS Code, open Command Palette (Ctrl+Shift+P) → "AIMani: Set API Key" and enter your key.
+In settings, set:
+Use extension features as normal.
+3. Ollama (Local LLMs)
+How to use:
+Install Ollama and run it on your machine.
+Pull a model, e.g.:
+In VS Code settings, set:
+No API key is needed for Ollama.
+Use extension features as normal (requests go to your local Ollama server).
+Summary Table:
+
+Provider	API Key Needed	Example Model Name	Notes
+Anthropic	Yes	claude-3-sonnet-20240229	Cloud, paid
+OpenAI	Yes	gpt-4, gpt-3.5-turbo	Cloud, paid
+Ollama	No	llama3, mistral, etc.	Local, free/open-source
+To switch models:
+Change the ai-assistant.provider and ai-assistant.model settings in your VS Code settings.
 
 ## 📋 Requirements
 

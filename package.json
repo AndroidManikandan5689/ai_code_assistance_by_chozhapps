@@ -5,7 +5,7 @@
   "publisher": "androidmani",
   "license": "ISC",
   "description": "An AI-powered coding assistant that helps with code generation, explanation, and debugging",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "engines": {
     "vscode": "^1.74.0"
   },
@@ -34,39 +34,39 @@
     "commands": [
       {
         "command": "ai-assistant.explainCode",
-        "title": "AI: Explain Selected Code"
+        "title": "AIMani: Explain Selected Code"
       },
       {
         "command": "ai-assistant.generateCode",
-        "title": "AI: Generate Code from Comment"
+        "title": "AIMani: Generate Code from Comment"
       },
       {
         "command": "ai-assistant.optimizeCode",
-        "title": "AI: Optimize Selected Code"
+        "title": "AIMani: Optimize Selected Code"
       },
       {
         "command": "ai-assistant.debugCode",
-        "title": "AI: Debug Selected Code"
+        "title": "AIMani: Debug Selected Code"
       },
       {
         "command": "ai-assistant.addComments",
-        "title": "AI: Add Comments to Code"
+        "title": "AIMani: Add Comments to Code"
       },
       {
         "command": "ai-assistant.refactorCode",
-        "title": "AI: Refactor Selected Code"
+        "title": "AIMani: Refactor Selected Code"
       },
       {
         "command": "ai-assistant.generateTests",
-        "title": "AI: Generate Unit Tests"
+        "title": "AIMani: Generate Unit Tests"
       },
       {
         "command": "ai-assistant.chatWithAI",
-        "title": "AI: Open Chat Panel"
+        "title": "AIMani: Open Chat Panel"
       },
       {
         "command": "ai-assistant.setApiKey",
-        "title": "AI: Set API Key"
+        "title": "AIMani: Set API Key"
       }
     ],
     "menus": {
@@ -132,7 +132,8 @@
           "type": "string",
           "enum": [
             "anthropic",
-            "openai"
+            "openai",
+            "ollama"
           ],
           "default": "anthropic",
           "description": "AI provider to use"

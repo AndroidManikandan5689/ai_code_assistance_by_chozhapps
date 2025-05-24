@@ -153,7 +153,12 @@ async function showResult(result: string, action: string, editor: vscode.TextEdi
 async function setApiKey() {
     const config = vscode.workspace.getConfiguration('ai-assistant');
     const provider = config.get<string>('provider', 'anthropic');
-    
+
+    if (provider === 'ollama') {
+        vscode.window.showInformationMessage('Ollama does not require an API key.');
+        return;
+    }
+
     const apiKey = await vscode.window.showInputBox({
         prompt: `Enter your ${provider} API key`,
         password: true,

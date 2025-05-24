@@ -53,6 +53,60 @@ Select a function or class and ask Claude to generate inline documentation.
 4. 🐞 Bug Finding
 Choose a piece of code and ask Claude to identify potential issues.
 
+## 🦙 Ollama Local Model Support
+
+### Using Ollama as a Provider
+
+Ollama lets you run open-source LLMs (like Llama 3, Mistral, etc.) locally on your machine.  
+**No API key is required.**
+
+#### 1. Install Ollama
+
+- Download and install Ollama from [https://ollama.com/download](https://ollama.com/download)
+- Start Ollama (`ollama serve` runs automatically on most systems)
+
+#### 2. Pull a Model
+
+Open your terminal and run (example for Llama 3):
+
+```bash
+ollama pull llama3
+```
+
+#### 3. Configure the Extension
+
+- In VS Code, open Settings (`Ctrl+,`)
+- Set:
+  - `ai-assistant.provider` to `"ollama"`
+  - `ai-assistant.model` to the model you pulled (e.g., `"llama3"`)
+- **No API key is needed for Ollama.**
+
+Example settings:
+
+```json
+{
+  "ai-assistant.provider": "ollama",
+  "ai-assistant.model": "llama3",
+  "ai-assistant.maxTokens": 2000,
+  "ai-assistant.temperature": 0.1
+}
+```
+
+#### 4. Usage
+
+- Use all extension features as usual.
+- The extension will connect to your local Ollama server at `http://localhost:11434`.
+
+#### 5. Troubleshooting
+
+- Make sure Ollama is running (`ollama serve`)
+- Ensure the model name matches what you pulled
+- No API key is required; if prompted, you can skip
+
+---
+
+**Tip:** Ollama runs entirely on your machine—no cloud required!
+
 ## 👨‍💻 Development
 To build the extension locally:
 
@@ -84,6 +138,8 @@ npm install -g vsce
 ```bash
 vsce package
 ```
+
+
 # 🤝 Contributing
 Contributions are welcome! Feel free to fork the project and submit a pull request.
 
