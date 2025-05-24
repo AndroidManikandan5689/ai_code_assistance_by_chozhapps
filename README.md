@@ -1,4 +1,5 @@
-Claude VS Code Extension by ChozhApps
+# Claude VS Code Extension by ChozhApps
+
 A Visual Studio Code extension that integrates Claude AI directly into your editor. Get AI-powered coding help, explanations, documentation generation, and more — without leaving VS Code.
 
 🚀 Features
