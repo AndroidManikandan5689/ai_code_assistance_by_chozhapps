@@ -14,64 +14,55 @@ A Visual Studio Code extension that integrates Claude AI directly into your edit
 💡 Context-aware responses based on your selected code
 
 ### 🛠 Installation
-Download the .vsix file from the Releases page.
-
-In VS Code, press Ctrl+Shift+P (or Cmd+Shift+P on Mac).
-
-Type Install from VSIX and select the downloaded file.
-
-Restart VS Code.
+ * Download the .vsix file from the Releases page.
+ * In VS Code, press Ctrl+Shift+P (or Cmd+Shift+P on Mac).
+ * Type Install from VSIX and select the downloaded file.
+ * Restart VS Code.
 
 ### ⚙️ Configuration
 Before using the extension, you must add your Claude API key:
 
-Get your API key from the Anthropic Console.
-
-Open VS Code Settings (Ctrl+, or Cmd+, on Mac).
-
-Search for Claude.
-
-Enter your API key in the Claude VS Code: API Key field.
+ * Get your API key from the Anthropic Console.
+ * Open VS Code Settings (Ctrl+, or Cmd+, on Mac).
+ * Search for Claude.
+ * Enter your API key in the Claude VS Code: API Key field.
 
 ### Optional Settings:
 claude-vscode.model: Choose which Claude model to use (default: claude-3-opus-20240229)
 
 ### 💡 Usage
-Select text or code in your editor.
-
-Trigger Claude with any of the following:
-
-Press Ctrl+Shift+C (or Cmd+Shift+C on Mac)
-
-Press Ctrl+Shift+P, type “Ask Claude”, and run the command
-
-Right-click and select Ask Claude from the context menu
-
-Claude's response will appear in the Claude Output channel.
+ * Select text or code in your editor.
+ * Trigger Claude with any of the following:
+     *  * Press Ctrl+Shift+C (or Cmd+Shift+C on Mac)
+     *  * Press Ctrl+Shift+P, type “Ask Claude”, and run the command
+     *  * Right-click and select Ask Claude from the context menu
+ * Claude's response will appear in the Claude Output channel.
 
 ### 🧪 Examples
 Here are some practical ways to use Claude with your code:
 
-### 🔍 Code Explanation
+1. 🔍 Code Explanation
 Select a complex code block and ask Claude to explain it.
 
-### 🔧 Code Improvement
+2. 🔧 Code Improvement
 Highlight code you'd like optimized and request suggestions.
 
-### 📝 Documentation
+3. 📝 Documentation
 Select a function or class and ask Claude to generate inline documentation.
 
-### 🐞 Bug Finding
+4. 🐞 Bug Finding
 Choose a piece of code and ask Claude to identify potential issues.
 
-### 👨‍💻 Development
+## 👨‍💻 Development
 To build the extension locally:
 
 bash
 Copy
 Edit
 # Clone the repository
+```bash
 git clone https://github.com/AndroidManikandan5689/ai_code_assistance_by_chozhapps.git
+```
 
 
 ### Installation Steps
@@ -100,7 +91,7 @@ Contributions are welcome! Feel free to fork the project and submit a pull reque
 This project is licensed under the MIT License.
 
 # 👨‍💻 Author
-Manikandan (AndroidMani), Founder of ChozhApps
+Manikandan K (AndroidMani), Founder of ChozhApps
 📧 Contact: chozhanaaduapps@gmail.com
 
 # 💬 Support
